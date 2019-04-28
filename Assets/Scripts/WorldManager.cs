@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WorldManager : MonoBehaviour
 {
@@ -60,9 +61,32 @@ public class WorldManager : MonoBehaviour
 
     public GameObject UpgradeWindow;
 
+    public GameObject TutorialWindow_Scrap;
+    public GameObject TutorialWindow_Overheat;
+    public GameObject TutorialWindow_Bombs;
+
+    public GameObject EndScreen;
+    public GameObject EndScreen_Levels;
+    public GameObject EndScreen_Enemies;
+    public GameObject EndScreen_Scrap;
+
+    public int EnemiesSpawned = 0;
+    public int EnemiesKilled = 0;
+    public int ScrapCollected = 0;
+
+    public GameObject MenuWindow;
+
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            OpenMenu();
+        }
+
+        if (IsPaused)
+            return;
+
         if (bulletTimeLeft > 0)
         {
             bulletTimeLeft -= Time.deltaTime;
@@ -70,6 +94,12 @@ public class WorldManager : MonoBehaviour
             {
                 Camera.main.GetComponent<BulletTimeFX>().enabled = false;
             }
+        }
+
+        if(playerUnit == null)
+        {
+            // player is DED
+            GameOver();
         }
     }
 
@@ -158,17 +188,18 @@ public class WorldManager : MonoBehaviour
     {
         // Cleanup the level, show shop!
         levelParent.GetChild(currentLevel).gameObject.SetActive(false);
-        currentLevel++;
 
-        IsPaused = true;
+        Pause();
 
-        if (currentLevel >= levelParent.childCount)
+        if (currentLevel >= levelParent.childCount-1)
         {
             // TODO: Show victory screen? Restart NG+?
             Debug.Log("Game is over.");
-            //return;
+            GameOver();
+            return;
         }
 
+        currentLevel++;
 
         UpgradeWindow.SetActive(true);
         SoundManager.Instance.PlayOpenShop();
@@ -178,12 +209,14 @@ public class WorldManager : MonoBehaviour
     {
         UpgradeWindow.SetActive(false);
 
-        IsPaused = false;
+        UnPause();
 
         playerUnit.gameObject.SetActive(false);
 
         StartCoroutine(StartLevelCO());
     }
+
+    bool didBombTutorial = false;
 
     IEnumerator StartLevelCO()
     {
@@ -197,5 +230,84 @@ public class WorldManager : MonoBehaviour
         playerUnit.gameObject.SetActive(true);
 
         levelParent.GetChild(currentLevel).gameObject.SetActive(true);
+
+        if(didBombTutorial == false && (playerUnit.MaxBullettime > 0 || playerUnit.MaxMegabombs > 0))
+        {
+            didBombTutorial = true;
+            Tutorial_Bombs();
+        }
+    }
+
+    public void Tutorial_Scrap()
+    {
+        Pause();
+        TutorialWindow_Scrap.transform.parent.gameObject.SetActive(true);
+        TutorialWindow_Scrap.SetActive(true);
+    }
+
+    public void Tutorial_Overheat()
+    {
+        Pause();
+        TutorialWindow_Overheat.transform.parent.gameObject.SetActive(true);
+        TutorialWindow_Overheat.SetActive(true);
+    }
+
+    public void Tutorial_Bombs()
+    {
+        Pause();
+        TutorialWindow_Bombs.transform.parent.gameObject.SetActive(true);
+        TutorialWindow_Bombs.SetActive(true);
+    }
+
+    public void Pause()
+    {
+        IsPaused = true;
+    }
+
+    public void UnPause()
+    {
+        IsPaused = false;
+    }
+
+    public void GameOver()
+    {
+        Pause();
+        EndScreen.SetActive(true);
+
+        string s = "game over";
+
+        if (playerUnit != null && playerUnit.GetComponent<Unit>().Health >= 0)
+        {
+            s = "victory!";
+            SoundManager.Instance.PlayVictory();
+        }
+        else
+        {
+            SoundManager.Instance.PlayGameOver();
+        }
+
+        EndScreen.transform.Find("title").GetComponent<TextMeshProUGUI>().text = s;
+
+        EndScreen_Levels.GetComponent<TextMeshProUGUI>().text  = "you reached level "+(currentLevel+1)+" of " + levelParent.childCount;
+        EndScreen_Enemies.GetComponent<TextMeshProUGUI>().text = "you killed "+ EnemiesKilled + " enemies ("+((EnemiesKilled*100)/EnemiesSpawned) +"%)";
+        EndScreen_Scrap.GetComponent<TextMeshProUGUI>().text   = "you collected "+(ScrapCollected)+" scrap";
+    }
+
+    public int GetCurrentLevel()
+    {
+        return currentLevel;
+    }
+
+    public void OpenMenu()
+    {
+        Pause();
+        MenuWindow.SetActive(true);
+    }
+
+    public void CloseMenu()
+    {
+        UnPause();
+        MenuWindow.SetActive(false);
+
     }
 }

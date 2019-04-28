@@ -33,7 +33,7 @@ public class DroneUnit : MonoBehaviour
     {
         if(ParentPlayer == null)
         {
-            Debug.LogError("Drone without a player.");
+            //Debug.LogError("Drone without a player.");
             return;
         }
 

@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5524482738066110247
 Transform:
   m_ObjectHideFlags: 0
@@ -48,7 +48,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -4806,14 +4806,16 @@ MonoBehaviour:
   DamageBonus: 0
   PierceChance: 0
   HomingTurnRate: 0
+  HomingRateDecays: 1
   CritChance: 0
-  InvulnerabilityDuration: 0.1
+  InvulnerabilityDuration: 0.5
   Velocity: {x: 0, y: 0, z: 0}
   MaxSpeed: 5
   LimitedToScreenBounds: 0
   ScreenBoundLimits: 0.1
   FaceVelocity: 0
   ScrapRolls: 0
+  ExplosionStyle: 1
 --- !u!50 &7820707797498160308
 Rigidbody2D:
   serializedVersion: 4
@@ -4848,11 +4850,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PickupRange: 0.5
-  MaxMegabombs: 2
-  CurrentMegabombs: 2
+  MaxMegabombs: 0
+  CurrentMegabombs: 0
   MegabombDamage: 3
-  MaxBullettime: 2
-  CurrentBullettime: 2
+  MaxBullettime: 0
+  CurrentBullettime: 0
   MaxDrones: 0
   DroneArmor: 0
   DroneFireRateBonus: 0
@@ -4871,7 +4873,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7583dce49cfc8204fb95027c8caf10f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireDelay: 0.25
+  InitialFireDelay: 0
+  FireDelay: 0.35
   FireRateBonus: 0
   LongDelay: 1
   LongDelayCount: 0
@@ -4888,6 +4891,7 @@ MonoBehaviour:
   HeatPerShot: 0.1
   HeatSink: 0.4
   Overheated: 0
+  HeatEffects: {fileID: 2259893126256583460}
   FacesLeft: 0
 --- !u!114 &7820707797498160313
 MonoBehaviour:

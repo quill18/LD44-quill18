@@ -19,10 +19,13 @@ public class EnemyUnit : MonoBehaviour
             AllEnemies = new List<EnemyUnit>();
 
         AllEnemies.Add(this);
+
+        WorldManager.Instance.EnemiesSpawned++;
     }
 
     private void OnDisable()
     {
+
         AllEnemies.Remove(this);
     }
 
@@ -35,6 +38,9 @@ public class EnemyUnit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (WorldManager.Instance.IsPaused)
+            return;
+
         DoAI();
         DoShoot();
     }

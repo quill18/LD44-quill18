@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 9010038273646159140}
   - component: {fileID: 9010038273646159143}
   - component: {fileID: -1681761714403484689}
+  - component: {fileID: 8842417752378486705}
   m_Layer: 9
   m_Name: EnemyUnit_DiagUpward
   m_TagString: Untagged
@@ -131,6 +132,7 @@ MonoBehaviour:
   DamageBonus: 0
   PierceChance: 0
   HomingTurnRate: 0
+  HomingRateDecays: 1
   CritChance: 0
   InvulnerabilityDuration: 0
   Velocity: {x: 0, y: 0, z: 0}
@@ -200,4 +202,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FiresWithSubUnits: 0
-  Direction: {x: -5, y: 4, z: 0}
+  Direction: {x: -3, y: 3, z: 0}
+--- !u!114 &8842417752378486705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9010038273646159137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7583dce49cfc8204fb95027c8caf10f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialFireDelay: 3
+  FireDelay: 3
+  FireRateBonus: 0
+  LongDelay: 1
+  LongDelayCount: 0
+  BulletPrefab: {fileID: 7626936930573219016, guid: fd6e91a0f2263eb44b80c9e5f6a3b65c,
+    type: 3}
+  offset: {x: 0, y: 0, z: 0}
+  multishot: 0
+  DamageBonus: 0
+  PierceChance: 0
+  HomingTurnRate: 0
+  CritChance: 0
+  SpeedBonus: 0
+  Heat: 0
+  HeatPerShot: 0
+  HeatSink: 0
+  Overheated: 0
+  HeatEffects: {fileID: 0}
+  FacesLeft: 1

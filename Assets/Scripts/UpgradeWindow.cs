@@ -16,13 +16,20 @@ public class UpgradeWindow : MonoBehaviour
 
     int numUpgradesToShow = 3;
 
+    public TextMeshProUGUI DescriptionText;
+
     int rerollCost;
     private void OnEnable()
     {
         playerUnit = GameObject.FindObjectOfType<PlayerUnit>();
         UpgradeManager = GameObject.FindObjectOfType<UpgradeManager>();
-        rerollCost = 1; // will become 2
+        rerollCost = 0; // will become 1
         RefreshUpgrades();
+    }
+
+    private void Update()
+    {
+        DescriptionText.text = "there are three randomly selected upgrades for you to buy with scrap -- but remember that scrap also protects you in battle. spend wisely! you have " + playerUnit.GetComponent<Unit>().Health + " scrap.";
     }
 
     public void RefreshUpgrades()
@@ -42,7 +49,7 @@ public class UpgradeWindow : MonoBehaviour
         }
 
 
-        RerollLabel.text = "Re-Roll Upgrade Options!\n("+ rerollCost +" Scrap)";
+        RerollLabel.text = "re-roll choices!\n(" + rerollCost +" scrap)";
         UpdateButtonAvailability();
     }
 
@@ -85,7 +92,7 @@ public class UpgradeWindow : MonoBehaviour
         Transform btn = t.GetChild(i);
         btn.GetChild(0).GetComponent<TextMeshProUGUI>().text = availableUpgrades[i].Name;
         btn.GetChild(1).GetComponent<TextMeshProUGUI>().text = availableUpgrades[i].Description;
-        btn.GetChild(2).GetComponent<TextMeshProUGUI>().text = availableUpgrades[i].Cost + " scrap" + (availableUpgrades[i].Cost > 1 ? "s" : "");
+        btn.GetChild(2).GetComponent<TextMeshProUGUI>().text = availableUpgrades[i].Cost + " scrap";
     }
 
     void RandomizeOneButton(int i)

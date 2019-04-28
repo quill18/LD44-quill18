@@ -4,25 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Stats01 : MonoBehaviour
+public class Stats02 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
         text = GetComponent<TextMeshProUGUI>();
-        PlayerUnit = GameObject.FindObjectOfType<PlayerUnit>();
     }
 
     TextMeshProUGUI text;
-    PlayerUnit PlayerUnit;
 
     // Update is called once per frame
     void Update()
     {
-        if (PlayerUnit == null)
-            return;
-
-        string s = "scrap: " + PlayerUnit.ScrapCount();
+        string s = "level: " + (WorldManager.Instance.GetCurrentLevel()+1);
         /*if(PlayerUnit.OverEncumbered())
         {
             s += " !!!OVERENCUMBERED !!!";

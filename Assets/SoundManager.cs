@@ -23,6 +23,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip[] OpenShop;
     public AudioClip[] UpgradePurchased;
 
+    public AudioClip[] GameOver;
+    public AudioClip[] Victory;
+
     AudioSource NewSource()
     {
         GameObject go = SimplePool.Spawn(AudioClipPlayerPrefab, Vector3.zero, Quaternion.identity);
@@ -31,6 +34,16 @@ public class SoundManager : MonoBehaviour
         return src;
     }
 
+
+    public void PlayGameOver()
+    {
+        NewSource().clip = GameOver[Random.Range(0, GameOver.Length)];
+    }
+
+    public void PlayVictory()
+    {
+        NewSource().clip = Victory[Random.Range(0, Victory.Length)];
+    }
 
     public void PlayOpenShop()
     {

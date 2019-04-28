@@ -39,8 +39,18 @@ public class PlayerUnit : MonoBehaviour
 
     int scrapLimit = 50; // Above this you start to get encumbered.
 
+    static bool firstScrap = true;
+
     public void PickupScrap( Scrap scrap )
     {
+        if(firstScrap)
+        {
+            firstScrap = false;
+            WorldManager.Instance.Tutorial_Scrap();
+        }
+
+        WorldManager.Instance.ScrapCollected++;
+
         unit.GainHealth(1);
         scrapShield.GainScrap(scrap);
         SoundManager.Instance.PlaySlurp();
@@ -48,6 +58,8 @@ public class PlayerUnit : MonoBehaviour
 
     public int ScrapCount()
     {
+        if (scrapShield == null)
+            return 0;
         return scrapShield.ScrapCount();
     }
 
@@ -278,12 +290,12 @@ public class PlayerUnit : MonoBehaviour
 
     public void Upgrade_DroneArmor()
     {
-        DroneArmor++;
+        DroneArmor += 3;
     }
 
     public void Upgrade_DroneDamage()
     {
-        DroneDamageBonus++;
+        DroneDamageBonus += 2;
     }
 
     public void Upgrade_DroneFireRate()

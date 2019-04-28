@@ -18,6 +18,9 @@ public class Scrap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (WorldManager.Instance.IsPaused)
+            return;
+
         if (playerUnit == null)
             return; 
 
@@ -33,6 +36,9 @@ public class Scrap : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (WorldManager.Instance.IsPaused)
+            return;
+
         this.transform.Translate(velocity * Time.deltaTime, Space.World);
         this.transform.Rotate(0, 0, rotSpeed * Time.deltaTime);
     }

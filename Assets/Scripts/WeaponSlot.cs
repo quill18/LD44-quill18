@@ -13,6 +13,8 @@ public class WeaponSlot : MonoBehaviour
     private void OnEnable()
     {
         CooldownLeft = Random.Range(InitialFireDelay / 2f, InitialFireDelay * 1.5f);
+
+        evenShot = Random.Range(0, 2) == 0;
     }
 
     public float InitialFireDelay = 1f;
@@ -50,6 +52,9 @@ public class WeaponSlot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (WorldManager.Instance.IsPaused)
+            return;
+
         CooldownLeft -= BulletDeltaTime() * (1f + FireRateBonus);
         Heat = Mathf.Max(Heat - HeatSink * BulletDeltaTime(), 0);
         if (Heat <= 0)
@@ -86,6 +91,7 @@ public class WeaponSlot : MonoBehaviour
 
 
     bool evenShot = false;
+    static bool overHeatedOnce = false;
 
     public void Fire()
     {
@@ -110,6 +116,10 @@ public class WeaponSlot : MonoBehaviour
 
         if (Heat >= 1f)
         {
+            if (overHeatedOnce == false)
+                WorldManager.Instance.Tutorial_Overheat(); ;
+
+            overHeatedOnce = true;
             Overheated = true;
         }
 

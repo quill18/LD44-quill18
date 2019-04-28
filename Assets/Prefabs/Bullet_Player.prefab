@@ -4913,12 +4913,13 @@ MonoBehaviour:
   DamageBonus: 0
   PierceChance: 0
   HomingTurnRate: 0
+  HomingRateDecays: 1
   CritChance: 0
   InvulnerabilityDuration: 0
   Velocity: {x: 0, y: 0, z: 0}
   MaxSpeed: 7.5
   LimitedToScreenBounds: 0
-  ScreenBoundLimits: 0.5
+  ScreenBoundLimits: 0.1
   FaceVelocity: 0
   ScrapRolls: 0
   ExplosionStyle: 0

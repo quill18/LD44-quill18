@@ -8,6 +8,7 @@ public class MusicManager : MonoBehaviour
     void Start()
     {
         source = GetComponent<AudioSource>();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     AudioSource source;

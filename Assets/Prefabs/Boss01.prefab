@@ -47,11 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e898a42b26b10854e8338b3227ee9bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 5
+  Health: 10
   Damage: 1
   DamageBonus: 0
   PierceChance: 0
   HomingTurnRate: 0
+  HomingRateDecays: 1
   CritChance: 0
   InvulnerabilityDuration: 0
   Velocity: {x: 0, y: 0, z: 0}
@@ -59,7 +60,7 @@ MonoBehaviour:
   LimitedToScreenBounds: 0
   ScreenBoundLimits: 3
   FaceVelocity: 0
-  ScrapRolls: 4
+  ScrapRolls: 10
   ExplosionStyle: 2
 --- !u!50 &8009428328543567770
 Rigidbody2D:
@@ -108,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7583dce49cfc8204fb95027c8caf10f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialFireDelay: 1
   FireDelay: 1.25
   FireRateBonus: 0
   LongDelay: 1
@@ -174,11 +176,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e898a42b26b10854e8338b3227ee9bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 5
+  Health: 10
   Damage: 1
   DamageBonus: 0
   PierceChance: 0
   HomingTurnRate: 0
+  HomingRateDecays: 1
   CritChance: 0
   InvulnerabilityDuration: 0
   Velocity: {x: 0, y: 0, z: 0}
@@ -186,7 +189,7 @@ MonoBehaviour:
   LimitedToScreenBounds: 0
   ScreenBoundLimits: 3
   FaceVelocity: 0
-  ScrapRolls: 4
+  ScrapRolls: 10
   ExplosionStyle: 2
 --- !u!50 &3354474648523472984
 Rigidbody2D:
@@ -235,6 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7583dce49cfc8204fb95027c8caf10f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialFireDelay: 1
   FireDelay: 1.25
   FireRateBonus: 0
   LongDelay: 1
@@ -530,11 +534,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e898a42b26b10854e8338b3227ee9bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 10
+  Health: 20
   Damage: 1
   DamageBonus: 0
   PierceChance: 0
   HomingTurnRate: 0
+  HomingRateDecays: 1
   CritChance: 0
   InvulnerabilityDuration: 0
   Velocity: {x: 0, y: 0, z: 0}
@@ -542,7 +547,7 @@ MonoBehaviour:
   LimitedToScreenBounds: 0
   ScreenBoundLimits: 3
   FaceVelocity: 0
-  ScrapRolls: 4
+  ScrapRolls: 0
   ExplosionStyle: 2
 --- !u!50 &9192706638965362397
 Rigidbody2D:
@@ -591,6 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7583dce49cfc8204fb95027c8caf10f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialFireDelay: 1
   FireDelay: 0.1
   FireRateBonus: 0
   LongDelay: 1

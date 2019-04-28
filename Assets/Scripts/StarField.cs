@@ -6,7 +6,11 @@ public class StarField : MonoBehaviour
 {
     void Start()
     {
-        Bounds bounds = WorldManager.Instance.ScreenBounds;
+        Bounds bounds = new Bounds(Vector3.zero, new Vector3(
+      Camera.main.orthographicSize * Screen.width / Screen.height * 2,
+      Camera.main.orthographicSize * 2,
+      0
+    ));
 
         minX = bounds.min.x * 1.1f;
         maxX = bounds.max.x * 1.1f;
@@ -45,6 +49,11 @@ public class StarField : MonoBehaviour
 
     private void Update()
     {
+        if(WorldManager.Instance != null && WorldManager.Instance.IsPaused)
+        {
+            return;
+        }
+
         for (int i = 0; i < stars.Length; i++)
         {
             float x = stars[i].position.x - speeds[i] * Time.deltaTime;

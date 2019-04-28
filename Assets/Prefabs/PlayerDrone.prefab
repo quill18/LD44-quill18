@@ -89,10 +89,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3363826853404516244}
   - component: {fileID: 3363826853404516241}
-  - component: {fileID: 3363826853404516242}
   - component: {fileID: 3363826853404516243}
   - component: {fileID: 3363826853404516255}
   - component: {fileID: 2030039079657241302}
+  - component: {fileID: 3353070520898919181}
   m_Layer: 8
   m_Name: PlayerDrone
   m_TagString: Untagged
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e898a42b26b10854e8338b3227ee9bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 2
+  Health: 4
   Damage: 1
   DamageBonus: 0
   PierceChance: 0
@@ -142,32 +142,6 @@ MonoBehaviour:
   FaceVelocity: 0
   ScrapRolls: 0
   ExplosionStyle: 1
---- !u!61 &3363826853404516242
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3363826853404516245}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
-  m_EdgeRadius: 0
 --- !u!50 &3363826853404516243
 Rigidbody2D:
   serializedVersion: 4
@@ -234,3 +208,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ParentPlayer: {fileID: 0}
+--- !u!58 &3353070520898919181
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3363826853404516245}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.15

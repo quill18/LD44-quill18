@@ -82,6 +82,9 @@ public class ScrapShield : MonoBehaviour
         GameObject go = SimplePool.Spawn(ScrapShieldPrefab, scrap.transform.position, Quaternion.identity);
         go.transform.SetParent(shieldParent.transform);
         go.GetComponentInChildren<SpriteRenderer>().sprite = scrap.GetComponentInChildren<SpriteRenderer>().sprite;
+        Color c = go.GetComponentInChildren<SpriteRenderer>().color;
+        c.a = 1;
+        go.GetComponentInChildren<SpriteRenderer>().color = c;
 
     }
 

@@ -6,16 +6,35 @@ public class Unit : MonoBehaviour
 {
     private void OnEnable()
     {
-        playerUnit = GetComponentInParent<PlayerUnit>();
+        myPlayerUnit = GetComponentInParent<PlayerUnit>();
         weaponSlots = GetComponentsInChildren<WeaponSlot>();
 
-        BoundsGracePeriod = 0.5f;
+        BoundsGracePeriod = 1f;
 
-        ScrapRolls = Health / 2 + 1;
+        //ScrapRolls = Health / 2 + 1;
 
         isDead = false;
 
+        otherPlayerUnit = GameObject.FindObjectOfType<PlayerUnit>();
+
+        Bounds unitBounds = new Bounds();
+        SpriteRenderer[] srs = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sr in srs)
+        {
+            unitBounds.Encapsulate(sr.sprite.bounds);
+        }
+
+
+        boundsMax = unitBounds.max;
+        boundsMin = unitBounds.min;
+
+
     }
+
+    Vector3 boundsMax;
+    Vector3 boundsMin;
+
+
 
     public int Health = 0;
     public int Damage = 1; // Damage we inflict to another unit on Collision
@@ -47,10 +66,12 @@ public class Unit : MonoBehaviour
 
     bool isDead = false;
 
-    PlayerUnit playerUnit;
+    PlayerUnit myPlayerUnit;    // So I know if I am the player
+    PlayerUnit otherPlayerUnit;
+
     bool IsPlayer()
     {
-        return playerUnit != null;
+        return myPlayerUnit != null;
     }
 
     float BulletDeltaTime()
@@ -118,18 +139,23 @@ public class Unit : MonoBehaviour
         }
     }
 
+    int homingSkipFrame = 0;
     void HomeToNearestEnemy()
     {
         // An enemy is someone on a different layer (Player or Enemy)
+        homingSkipFrame--;
+        if (homingSkipFrame > 0)
+            return;
 
-        if(gameObject.layer == 12)
+        homingSkipFrame = Random.Range(2,4);
+
+        if (gameObject.layer == 12)
         {
             // I am on the enemy's team, so I need to home to the player
-            PlayerUnit pu = GameObject.FindObjectOfType<PlayerUnit>();
-            if (pu == null)
+            if (otherPlayerUnit == null)
                 return;
 
-            HomeTo( pu.transform );
+            HomeTo( otherPlayerUnit.transform );
             return;
         }
 
@@ -171,35 +197,28 @@ public class Unit : MonoBehaviour
 
     void KeepInScreenBounds()
     {
-        Bounds unitBounds = new Bounds();
-        Collider2D[] cols = GetComponentsInChildren<Collider2D>();
-        foreach (Collider2D col in cols)
-        {
-            unitBounds.Encapsulate(col.bounds);
-        }
-
 
         // Is the TOP of our sprite above the top of our screen?
         // Use ScreenBoundLimits as a border/padding
-        if (unitBounds.max.y > WorldManager.Instance.ScreenBounds.max.y - ScreenBoundLimits)
+        if (boundsMax.y + this.transform.position.y > WorldManager.Instance.ScreenBounds.max.y - ScreenBoundLimits)
         {
-            float overage = unitBounds.max.y - WorldManager.Instance.ScreenBounds.max.y + ScreenBoundLimits;
+            float overage = boundsMax.y + this.transform.position.y - WorldManager.Instance.ScreenBounds.max.y + ScreenBoundLimits;
             GetComponent<Rigidbody2D>().position += new Vector2(0, -overage);
         }
-        else if (unitBounds.min.y < WorldManager.Instance.ScreenBounds.min.y + ScreenBoundLimits)
+        else if (boundsMin.y + this.transform.position.y < WorldManager.Instance.ScreenBounds.min.y + ScreenBoundLimits)
         {
-            float overage = unitBounds.min.y - WorldManager.Instance.ScreenBounds.min.y - ScreenBoundLimits;
+            float overage = boundsMin.y + this.transform.position.y - WorldManager.Instance.ScreenBounds.min.y - ScreenBoundLimits;
             GetComponent<Rigidbody2D>().position += new Vector2(0, -overage);
         }
 
-        if (unitBounds.max.x > WorldManager.Instance.ScreenBounds.max.x - ScreenBoundLimits)
+        if (boundsMax.x + this.transform.position.x > WorldManager.Instance.ScreenBounds.max.x - ScreenBoundLimits)
         {
-            float overage = unitBounds.max.x - WorldManager.Instance.ScreenBounds.max.x + ScreenBoundLimits;
+            float overage = boundsMax.x + this.transform.position.x - WorldManager.Instance.ScreenBounds.max.x + ScreenBoundLimits;
             GetComponent<Rigidbody2D>().position += new Vector2(-overage, 0);
         }
-        else if (unitBounds.min.x < WorldManager.Instance.ScreenBounds.min.x + ScreenBoundLimits)
+        else if (boundsMin.x + this.transform.position.x < WorldManager.Instance.ScreenBounds.min.x + ScreenBoundLimits)
         {
-            float overage = unitBounds.min.x - WorldManager.Instance.ScreenBounds.min.x - ScreenBoundLimits;
+            float overage = boundsMin.x + this.transform.position.x - WorldManager.Instance.ScreenBounds.min.x - ScreenBoundLimits;
             GetComponent<Rigidbody2D>().position += new Vector2(-overage, 0);
         }
 
@@ -207,27 +226,21 @@ public class Unit : MonoBehaviour
 
     void DestroyOutOfScreenBounds()
     {
-        Bounds unitBounds = new Bounds();
-        SpriteRenderer[] srs = GetComponentsInChildren<SpriteRenderer>();
-        foreach (SpriteRenderer sr in srs)
-        {
-            unitBounds.Encapsulate(sr.bounds);
-        }
 
         // Is the TOP of our sprite above the top of our screen?
-        if (unitBounds.max.y > WorldManager.Instance.ScreenBounds.max.y + ScreenBoundLimits)
+        if (boundsMax.y + this.transform.position.y > WorldManager.Instance.ScreenBounds.max.y + ScreenBoundLimits)
         {
             Die(true);
         }
-        else if (unitBounds.min.y < WorldManager.Instance.ScreenBounds.min.y - ScreenBoundLimits)
+        else if (boundsMin.y + this.transform.position.y < WorldManager.Instance.ScreenBounds.min.y - ScreenBoundLimits)
         {
             Die(true);
         }
-        else if (unitBounds.max.x > WorldManager.Instance.ScreenBounds.max.x + ScreenBoundLimits)
+        else if (boundsMax.x + this.transform.position.x > WorldManager.Instance.ScreenBounds.max.x + ScreenBoundLimits)
         {
             Die(true);
         }
-        else if (unitBounds.min.x < WorldManager.Instance.ScreenBounds.min.x - ScreenBoundLimits)
+        else if (boundsMin.x + this.transform.position.x < WorldManager.Instance.ScreenBounds.min.x - ScreenBoundLimits)
         {
             Die(true);
         }
@@ -243,6 +256,14 @@ public class Unit : MonoBehaviour
         if (invulnerabilityLeft > 0 || amount <= 0 || isDead)
             return;
 
+        if( GetComponentsInChildren<Unit>().Length > 1)
+        {
+            // We have sub-parts, so we can't be damaged.
+            return;
+        }
+
+        if (myPlayerUnit != null)
+            DamageFlasher.Instance.DoFlash();
 
         Health -= amount;
         invulnerabilityLeft = InvulnerabilityDuration;
@@ -265,8 +286,12 @@ public class Unit : MonoBehaviour
 
     public void Die( bool justDestroy = false )
     {
+        if (isDead)
+            return; 
 
-        if(justDestroy == false)
+        isDead = true;
+
+        if (justDestroy == false)
         {
             // drop loot, change score, etc....
 
@@ -275,7 +300,11 @@ public class Unit : MonoBehaviour
                 WorldManager.Instance.RollScrap(this.transform.position);
             }
 
-            switch(ExplosionStyle)
+            if(GetComponent<EnemyUnit>() != null)
+                WorldManager.Instance.EnemiesKilled++;
+
+
+            switch (ExplosionStyle)
             {
                 case ExplosionType.TINY:
                     //SoundManager.Instance.PlayExplosion();
