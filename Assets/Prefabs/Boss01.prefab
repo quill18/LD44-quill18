@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4391426146519628675}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.164, y: 0, z: 0}
+  m_LocalPosition: {x: 0.164, y: 0, z: 1.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3839458051061806030}
@@ -60,6 +60,7 @@ MonoBehaviour:
   ScreenBoundLimits: 3
   FaceVelocity: 0
   ScrapRolls: 4
+  ExplosionStyle: 2
 --- !u!50 &8009428328543567770
 Rigidbody2D:
   serializedVersion: 4
@@ -124,6 +125,8 @@ MonoBehaviour:
   HeatPerShot: 0
   HeatSink: 0
   Overheated: 0
+  HeatEffects: {fileID: 0}
+  FacesLeft: 1
 --- !u!1 &4431111149489339581
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +187,7 @@ MonoBehaviour:
   ScreenBoundLimits: 3
   FaceVelocity: 0
   ScrapRolls: 4
+  ExplosionStyle: 2
 --- !u!50 &3354474648523472984
 Rigidbody2D:
   serializedVersion: 4
@@ -248,6 +252,8 @@ MonoBehaviour:
   HeatPerShot: 0
   HeatSink: 0
   Overheated: 0
+  HeatEffects: {fileID: 0}
+  FacesLeft: 1
 --- !u!1 &5280854482112302365
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,6 +543,7 @@ MonoBehaviour:
   ScreenBoundLimits: 3
   FaceVelocity: 0
   ScrapRolls: 4
+  ExplosionStyle: 2
 --- !u!50 &9192706638965362397
 Rigidbody2D:
   serializedVersion: 4
@@ -601,6 +608,8 @@ MonoBehaviour:
   HeatPerShot: 0
   HeatSink: 0
   Overheated: 0
+  HeatEffects: {fileID: 0}
+  FacesLeft: 1
 --- !u!1 &9192706639184316276
 GameObject:
   m_ObjectHideFlags: 0

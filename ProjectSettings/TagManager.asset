@@ -44,3 +44,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ScrapShield
+    uniqueID: 2326077525
+    locked: 0

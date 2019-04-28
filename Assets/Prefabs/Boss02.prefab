@@ -60,6 +60,7 @@ MonoBehaviour:
   ScreenBoundLimits: 3
   FaceVelocity: 0
   ScrapRolls: 4
+  ExplodesBig: 1
 --- !u!50 &9192706638965362397
 Rigidbody2D:
   serializedVersion: 4
@@ -124,6 +125,7 @@ MonoBehaviour:
   HeatPerShot: 0
   HeatSink: 0
   Overheated: 0
+  HeatEffects: {fileID: 0}
   FacesLeft: 0
 --- !u!1 &9192706639184316276
 GameObject:
