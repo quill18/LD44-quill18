@@ -7,6 +7,6 @@ public class DetachFromParent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.transform.SetParent(null);
+        this.transform.SetParent(null); // Become Batman
     }
 }
